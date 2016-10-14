@@ -26,10 +26,7 @@
         {% endif %}
     </h1>
     <h2>View, join or create projects for the next Hackathon.</h2>
-    <a class="ui huge primary button" href="{% url 'projects:add_project' %}">Create&nbsp;<i class="plus icon"></i></a>
-    {% if user_participating_already == False %}
-    <a class="ui huge primary button">Join&nbsp;<i class="right arrow icon"></i></a>
-    {% endif %}
+    <a class="ui huge primary button" href="{% url 'projects:add_project' %}">Create Project&nbsp;<i class="plus icon"></i></a>
 </div>
 {% endblock %}
 
@@ -50,19 +47,32 @@
                                 {{ project.name }}
                             </a>
                             <div class="meta">
-                                {{ project.min_participants }} - {{ project.max_participants }} people,
+                                {% if project.min_participants != project.max_participants %}
+                                    {{ project.min_participants }} - {{ project.max_participants }} people,
+                                {% elif project.min_participants == 1 %}
+                                    {{ project.max_participants }} person,
+                                {% else %}
+                                    {{ project.max_participants }} people,
+                                {% endif %}
                                 {{ project.participating_users.count }} signed up
                             </div class="meta">
                             <div class="description">
                                 {{ project.description|truncatechars:240 }}
                             </div>
                         </div>
+                        <!-- form to join a project from using the join button -->
+                        <form action="{% url 'projects:project' project.id %}" method="POST">
+                        {% csrf_token %}
                             <div class="ui two bottom attached buttons">
                                 <a class="ui button" href="{% url 'projects:project' project.id %}">View</a>
                                 {% if user_participating_already == False %}
-                                    <div class="ui primary button">Join</div>
+                                    <button type="submit" name="join" class="ui primary button">Join</a>
+                                {% elif current_users_project.id == project.id %}
+                                    <div class="ui disabled primary button">Joined</div>
+                                    |{{ current_users_project.id }}|
                                 {% endif %}
                             </div>
+                        </form>
                     </div>
                 {% endfor %}
                 </div>

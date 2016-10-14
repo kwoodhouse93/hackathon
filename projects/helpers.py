@@ -63,6 +63,5 @@ def user_participating_in_projects(projects, user):
         return True
 
 def user_participating_in_hackathon(hackathon_number, user):
-    # import pdb; pdb.set_trace()
     projects = Project.objects.filter(hackathon_id=hackathon_number)
     return user_participating_in_projects(projects, user)

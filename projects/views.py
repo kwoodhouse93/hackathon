@@ -14,12 +14,18 @@ from django.contrib.auth.models import User
 from .forms import ProjectForm
 
 def index(request, hackathon = decide_which_hackathon_to_display()):
+    # import pdb
+
     if hackathon:
         projects = Project.objects.filter(hackathon__number = hackathon)
         if request.user.is_authenticated() and user_participating_in_projects(projects, request.user):
             user_participating_already = True
+            current_users_project_qs = request.user.participant.filter(hackathon_id=hackathon)
+            if current_users_project_qs.count > 0:
+                current_users_project = current_users_project_qs[0]
         else:
             user_participating_already = False
+            current_users_project = None
     else:
         projects = Project.objects.all()
     hackathons = decide_which_hackathons_to_display(4)
@@ -27,8 +33,10 @@ def index(request, hackathon = decide_which_hackathon_to_display()):
         'projects': projects,
         'hackathon': hackathon,
         'hackathons': hackathons,
-        'user_participating_already': user_participating_already
+        'user_participating_already': user_participating_already,
+        'current_users_project': current_users_project
     }
+    # pdb.set_trace()
     return render(request, 'projects/index.html', context)
 
 def project(request, project_id):
@@ -54,7 +62,7 @@ def project(request, project_id):
     context = {
         'project':project,
         'current_user_participating':current_user_participating,
-        'user_participating_already':user_participating_already
+        'user_participating_already':user_participating_already,
     }
 
     return render(request, 'projects/project.html', context)
