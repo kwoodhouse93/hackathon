@@ -1,2 +1,5 @@
+Django==1.9.7
+psycopg2
 gunicorn==19.3.0
 django-contrib-comments==1.7.1
+django-registration==2.1

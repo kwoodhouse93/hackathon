@@ -16,10 +16,19 @@ from .forms import ProjectForm
 def index(request, hackathon = decide_which_hackathon_to_display()):
     if hackathon:
         projects = Project.objects.filter(hackathon__number = hackathon)
+        if request.user.is_authenticated() and user_participating_in_projects(projects, request.user):
+            user_participating_already = True
+        else:
+            user_participating_already = False
     else:
         projects = Project.objects.all()
     hackathons = decide_which_hackathons_to_display(4)
-    context = {'projects': projects, 'hackathon': hackathon, 'hackathons': hackathons}
+    context = {
+        'projects': projects,
+        'hackathon': hackathon,
+        'hackathons': hackathons,
+        'user_participating_already': user_participating_already
+    }
     return render(request, 'projects/index.html', context)
 
 def project(request, project_id):
@@ -37,10 +46,18 @@ def project(request, project_id):
 
     if request.user.is_authenticated():
         current_user_participating = request.user.participant.filter(id=project.id).exists()
+        user_participating_already = user_participating_in_hackathon(project.hackathon.number, request.user)
     else:
         current_user_participating = False
+        user_participating_already = False
 
-    return render(request, 'projects/project.html', {'project':project, 'current_user_participating':current_user_participating})
+    context = {
+        'project':project,
+        'current_user_participating':current_user_participating,
+        'user_participating_already':user_participating_already
+    }
+
+    return render(request, 'projects/project.html', context)
 
 @login_required
 def add_project(request):

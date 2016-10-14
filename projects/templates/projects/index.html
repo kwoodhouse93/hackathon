@@ -27,7 +27,9 @@
     </h1>
     <h2>View, join or create projects for the next Hackathon.</h2>
     <a class="ui huge primary button" href="{% url 'projects:add_project' %}">Create&nbsp;<i class="plus icon"></i></a>
+    {% if user_participating_already == False %}
     <a class="ui huge primary button">Join&nbsp;<i class="right arrow icon"></i></a>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -57,7 +59,9 @@
                         </div>
                             <div class="ui two bottom attached buttons">
                                 <a class="ui button" href="{% url 'projects:project' project.id %}">View</a>
-                                <div class="ui primary button">Join</div>
+                                {% if user_participating_already == False %}
+                                    <div class="ui primary button">Join</div>
+                                {% endif %}
                             </div>
                     </div>
                 {% endfor %}

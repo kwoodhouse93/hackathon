@@ -28,7 +28,7 @@
     {% if current_user_participating %}
         <button type="submit" name="leave" class="ui red button">Leave&nbsp;&nbsp;<i class="sign out icon"></i></button>
     {% else %}
-        {% if project.spaces_left %}
+        {% if project.spaces_left and user_participating_already == False %}
             <button type="submit" name="join" class="ui primary button">Join<i class="right arrow icon"></i></button>
         {% endif %}
     {% endif %}
