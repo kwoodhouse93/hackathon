@@ -5,7 +5,7 @@ from projects.models import Project
 class ProjectForm(ModelForm):
     class Meta:
         model  = Project
-        fields = ('name', 'hackathon', 'description', 'author', 'min_participants', 'max_participants', 'skills', 'tags')
+        fields = ('name', 'hackathon', 'rich_description', 'author', 'min_participants', 'max_participants', 'skills', 'tags')
         widgets = {
             'skills': TextInput(),
             'tags': TextInput(),

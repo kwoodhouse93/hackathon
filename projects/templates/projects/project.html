@@ -79,7 +79,7 @@
             <i class="book icon"></i> Description
         </h3>
         <div class="ui basic segment">
-            {{ project.description }}
+            {{ project.rich_description|safe }}
         </div>
     <h3 class="ui horizontal divider header">
         <i class="certificate icon"></i>Skills

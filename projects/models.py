@@ -5,6 +5,9 @@ import re
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.core.validators import MinValueValidator
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from django.contrib.auth.models import User
 from hackathons.models import Hackathon
 
@@ -12,6 +15,7 @@ from hackathons.models import Hackathon
 class Project(models.Model):
     name = models.CharField(max_length=240)
     description = models.TextField()
+    rich_description = RichTextUploadingField()
     author = models.CharField(max_length=50)
     participants = models.TextField(blank=True)
     participating_users = models.ManyToManyField(User, related_name='participant')

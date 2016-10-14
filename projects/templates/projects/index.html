@@ -57,7 +57,7 @@
                                 {{ project.participating_users.count }} signed up
                             </div class="meta">
                             <div class="description">
-                                {{ project.description|truncatechars:240 }}
+                                {{ project.rich_description|safe|striptags|truncatechars:240 }}
                             </div>
                         </div>
                         <!-- form to join a project from using the join button -->

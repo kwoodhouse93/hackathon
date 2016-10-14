@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_comments',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -132,3 +134,11 @@ LOGIN_URL = '/login/'
 #
 # Sites settings
 SITE_ID = 1
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# CKEditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_RESTRICT_BY_USER = True

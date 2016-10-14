@@ -3,3 +3,4 @@ psycopg2
 gunicorn==19.3.0
 django-contrib-comments==1.7.1
 django-registration==2.1
+django-ckeditor==5.1.1
