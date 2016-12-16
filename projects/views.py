@@ -13,9 +13,10 @@ from django.contrib.auth.models import User
 
 from .forms import ProjectForm
 
-def index(request, hackathon = decide_which_hackathon_to_display()):
+def index(request, hackathon=None):
     # import pdb
-
+    if hackathon is None:
+        hackathon = decide_which_hackathon_to_display()
     if hackathon:
         projects = Project.objects.filter(hackathon__number = hackathon)
         if request.user.is_authenticated() and user_participating_in_projects(projects, request.user):
