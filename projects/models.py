@@ -15,7 +15,7 @@ from hackathons.models import Hackathon
 class Project(models.Model):
     name = models.CharField(max_length=240)
     description = models.TextField()
-    rich_description = RichTextUploadingField()
+    rich_description = RichTextUploadingField(default="")
     author = models.CharField(max_length=50)
     participants = models.TextField(blank=True)
     participating_users = models.ManyToManyField(User, related_name='participant')

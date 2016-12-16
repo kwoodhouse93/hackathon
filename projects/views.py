@@ -34,8 +34,8 @@ def index(request, hackathon=None):
         'projects': projects,
         'hackathon': hackathon,
         'hackathons': hackathons,
-        'user_participating_already': user_participating_already,
-        'current_users_project': current_users_project
+        'user_participating_already': False,
+        'current_users_project': None,
     }
     # pdb.set_trace()
     return render(request, 'projects/index.html', context)
