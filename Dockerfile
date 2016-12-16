@@ -8,9 +8,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
 
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+RUN chmod ugo+x /usr/bin/entrypoint.sh
+
 EXPOSE 8000
 
-RUN python manage.py migrate
-RUN python manage.py collectstatic --noinput
-
-CMD ["/usr/local/bin/gunicorn", "hackathon.wsgi:application", "-w 2", "-b", ":8000"]
+CMD "/usr/bin/entrypoint.sh"

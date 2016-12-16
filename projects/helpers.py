@@ -1,3 +1,4 @@
+
 from datetime import date
 from django.db.models import Count
 
@@ -12,7 +13,7 @@ def get_current_hackathon(today):
 def get_upcoming_hackathon(today):
     hackathons = Hackathon.objects.all()
     found_upcoming = False
-    if hackathons.count > 0:
+    if hackathons.count() > 0:
         upcoming = hackathons[0]
 
         for hackathon in hackathons:
@@ -26,7 +27,7 @@ def get_upcoming_hackathon(today):
 def get_previous_hackathon(today):
     hackathons = Hackathon.objects.all()
     found_latest = False
-    if hackathons.count > 0:
+    if hackathons.count() > 0:
         latest = hackathons[0]
 
         for hackathon in hackathons:

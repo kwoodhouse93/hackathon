@@ -5,7 +5,7 @@ nginx:
   links:
     - django
   ports:
-    - "80:80"
+    - "8080:80"
 
 django:
   build: .
