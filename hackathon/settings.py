@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+# import ldap
+# from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -109,6 +112,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTHENTICATION_BACKENDS = [
+#     # 'django_auth_ldap.backend.LDAPBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
+
+AUTH_LDAP_SERVER_URI = "ldap://ldap.terastack.bluearc.com"
+# AUTH_LDAP_BIND_DN = "cn=LDAPGuest,cn=Users,dc=terastack,dc=bluearc,dc=com"
+# AUTH_LDAP_BIND_PASSWORD = "
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

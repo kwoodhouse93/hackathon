@@ -29,6 +29,8 @@ def index(request, hackathon=None):
             current_users_project = None
     else:
         projects = Project.objects.all()
+        user_participating_already = False
+        current_users_project = None
     hackathons = decide_which_hackathons_to_display(4)
     authenticated = request.user.is_authenticated()
     context = {

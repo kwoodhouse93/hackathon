@@ -1,5 +1,7 @@
 FROM django:1.9-python2
 
+RUN apt-get update && apt-get install -y libsasl2-dev python-dev libldap2-dev libssl-dev
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 

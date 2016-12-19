@@ -1,6 +1,8 @@
 Django==1.9.7
 psycopg2
 gunicorn==19.3.0
+python-ldap==2.4.28
+django-auth-ldap==1.2.8
 django-contrib-comments==1.7.1
 django-registration==2.1
 django-ckeditor==5.1.1
