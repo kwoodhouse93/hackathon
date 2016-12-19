@@ -120,3 +120,6 @@ semantic/dist/
 semantic/tasks/
 !semantic/dist/semantic.min.css
 !semantic/dist/semantic.min.js
+
+# CKEditor uploads
+media/uploads/
