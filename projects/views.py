@@ -22,7 +22,7 @@ def index(request, hackathon=None):
         if request.user.is_authenticated() and user_participating_in_projects(projects, request.user):
             user_participating_already = True
             current_users_project_qs = request.user.participant.filter(hackathon_id=hackathon)
-            if current_users_project_qs.count > 0:
+            if current_users_project_qs.count() > 0:
                 current_users_project = current_users_project_qs[0]
         else:
             user_participating_already = False
@@ -30,14 +30,15 @@ def index(request, hackathon=None):
     else:
         projects = Project.objects.all()
     hackathons = decide_which_hackathons_to_display(4)
+    authenticated = request.user.is_authenticated()
     context = {
         'projects': projects,
         'hackathon': hackathon,
         'hackathons': hackathons,
-        'user_participating_already': False,
-        'current_users_project': None,
+        'user_participating_already': user_participating_already,
+        'current_users_project': current_users_project,
+        'authenticated': authenticated,
     }
-    # pdb.set_trace()
     return render(request, 'projects/index.html', context)
 
 def project(request, project_id):
@@ -53,7 +54,9 @@ def project(request, project_id):
         redirect_url = "/projects/" + str(project_id)
         return HttpResponseRedirect(redirect_url, {'project':project, 'current_user_participating':current_user_participating})
 
-    if request.user.is_authenticated():
+    authenticated = request.user.is_authenticated()
+
+    if authenticated:
         current_user_participating = request.user.participant.filter(id=project.id).exists()
         user_participating_already = user_participating_in_hackathon(project.hackathon.number, request.user)
     else:
@@ -64,6 +67,7 @@ def project(request, project_id):
         'project':project,
         'current_user_participating':current_user_participating,
         'user_participating_already':user_participating_already,
+        'authenticated':authenticated,
     }
 
     return render(request, 'projects/project.html', context)

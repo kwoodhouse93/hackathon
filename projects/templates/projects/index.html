@@ -65,11 +65,13 @@
                         {% csrf_token %}
                             <div class="ui two bottom attached buttons">
                                 <a class="ui button" href="{% url 'projects:project' project.id %}">View</a>
-                                {% if user_participating_already == False %}
-                                    <button type="submit" name="join" class="ui primary button">Join</a>
-                                {% elif current_users_project.id == project.id %}
-                                    <div class="ui disabled primary button">Joined</div>
-                                    |{{ current_users_project.id }}|
+                                {% if authenticated == True %}
+                                    {% if user_participating_already == False %}
+                                        <button type="submit" name="join" class="ui primary button">Join</a>
+                                    {% elif current_users_project.id == project.id %}
+                                        <div class="ui disabled primary button">Joined</div>
+                                        |{{ current_users_project.id }}|
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </form>
