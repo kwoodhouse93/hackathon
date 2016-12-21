@@ -16,4 +16,6 @@ RUN chmod ugo+x /usr/bin/entrypoint.sh
 
 EXPOSE 8000
 
+VOLUME /usr/src/app
+
 CMD "/usr/bin/entrypoint.sh"
