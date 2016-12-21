@@ -14,6 +14,8 @@ RUN chmod ugo+x /usr/bin/entrypoint.sh /usr/bin/wait-for-postgres.sh /usr/bin/pr
 
 EXPOSE 8000
 
+VOLUME /usr/src/app
+
 CMD "/usr/bin/entrypoint.sh"
 
 COPY . /usr/src/app
