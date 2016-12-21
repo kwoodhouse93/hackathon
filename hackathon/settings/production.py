@@ -11,3 +11,20 @@ DATABASES = {
         'PORT' : 5432,
     }
 }
+ALLOWED_HOSTS = ['*', ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'production_console': {
+            'level':'INFO',
+            'class':'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['production_console', ]
+        }
+    }
+}

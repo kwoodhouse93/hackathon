@@ -5,6 +5,6 @@ services:
       - db
     environment:
       - DJANGO_SETTINGS_MODULE=hackathon.settings.production
-    command: /usr/local/bin/gunicorn hackathon.wsgi:application -w 2 -b :8000
+    command: /usr/bin/production-entrypoint.sh
   db:
     image: postgres
