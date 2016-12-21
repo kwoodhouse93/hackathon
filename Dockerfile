@@ -8,14 +8,13 @@ WORKDIR /usr/src/app
 COPY requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /usr/src/app
+COPY production-entrypoint.sh entrypoint.sh wait-for-postgres.sh /usr/bin/
 
-COPY entrypoint.sh /usr/bin/entrypoint.sh
-
-RUN chmod ugo+x /usr/bin/entrypoint.sh
+RUN chmod ugo+x /usr/bin/entrypoint.sh /usr/bin/wait-for-postgres.sh /usr/bin/production-entrypoint.sh
 
 EXPOSE 8000
 
-VOLUME /usr/src/app
-
 CMD "/usr/bin/entrypoint.sh"
+
+COPY . /usr/src/app
+VOLUME /usr/src/app
