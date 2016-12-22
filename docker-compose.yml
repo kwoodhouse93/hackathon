@@ -1,15 +1,14 @@
-nginx:
-  build: ./nginx
-  volumes:
-    - .:/usr/src/app
-  links:
-    - django
-  ports:
-    - "8080:80"
-
-django:
-  build: .
-  volumes:
-    - .:/usr/src/app
-  expose:
-    - "8000"
+version: '2.0'
+services:
+  nginx:
+    build: ./nginx
+    volumes_from:
+      - django
+    links:
+      - django
+    ports:
+      - "8080:80"
+  django:
+    build: .
+    volumes:
+      - .:/usr/src/app

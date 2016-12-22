@@ -1,0 +1,15 @@
+version: '2.0'
+services:
+  django:
+    links:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=hackathon.settings.production
+    command: /usr/bin/wait-for-postgres.sh db /usr/bin/production-entrypoint.sh
+  db:
+    image: postgres
+    volumes:
+      - pgsql_volume:/var/lib/postgresql/data
+
+volumes:
+  pgsql_volume:
