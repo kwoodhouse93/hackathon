@@ -11,7 +11,7 @@ def get_current_hackathon(today):
             return hackathon.number
 
 def get_upcoming_hackathon(today):
-    hackathons = Hackathon.objects.all()
+    hackathons = Hackathon.objects.all().order_by('-start_date')
     found_upcoming = False
     if hackathons.count() > 0:
         upcoming = hackathons[0]
@@ -25,7 +25,7 @@ def get_upcoming_hackathon(today):
             return upcoming.number
 
 def get_previous_hackathon(today):
-    hackathons = Hackathon.objects.all()
+    hackathons = Hackathon.objects.all().order_by('start_date')
     found_latest = False
     if hackathons.count() > 0:
         latest = hackathons[0]
@@ -34,12 +34,11 @@ def get_previous_hackathon(today):
             if (hackathon.end_date <= today) and (hackathon.end_date >= latest.end_date):
                 found_latest = True
                 latest = hackathon
-
         if found_latest:
             return latest.number
 
 def decide_which_hackathons_to_display(number):
-    return Hackathon.objects.values('number').annotate(start_date_count=Count('start_date')).order_by('-start_date_count')[:number]
+    return Hackathon.objects.values('number').order_by('-start_date')[:number]#annotate(start_date_count=Count('start_date')).order_by('-start_date_count')[:number]
 
 def decide_which_hackathon_to_display():
     today = date.today()
