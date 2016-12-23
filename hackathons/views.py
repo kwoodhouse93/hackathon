@@ -6,11 +6,11 @@ from .models import Hackathon
 from .forms import HackathonForm
 
 def index(request):
-    hackathons = Hackathon.objects.all()
+    hackathons = Hackathon.objects.all().order_by('start_date')
     context = {'hackathons': hackathons}
     return render(request, 'hackathons/index.html', context)
     #return HttpResponse("Hello, world. You're at the hackathon index")
-    
+
 def add_hackathon(request):
     form = HackathonForm(request.POST or None)
     if request.method == 'POST':
@@ -21,7 +21,7 @@ def add_hackathon(request):
     context = {
         "form": form
     }
-    
+
     return render(request, "hackathons/add.html", context)
 
 def edit_hackathon(request, number):
