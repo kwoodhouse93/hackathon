@@ -14,9 +14,11 @@ from hackathons.models import Hackathon
 @python_2_unicode_compatible
 class Project(models.Model):
     name = models.CharField(max_length=240)
-    description = models.TextField()
+    description = models.TextField() # Deprecated
     rich_description = RichTextUploadingField(default="")
     author = models.CharField(max_length=50)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    # led_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     participants = models.TextField(blank=True)
     participating_users = models.ManyToManyField(User, related_name='participant')
     min_participants = models.PositiveIntegerField(validators=[MinValueValidator(1)])
