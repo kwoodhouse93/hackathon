@@ -7,6 +7,9 @@
 <div class="ui raised segment">
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
+{% else %}
+<p>Please use your GSE credentials.<br />
+These are what you use for Discourse.</p>
 {% endif %}
 <div class="ui form">
 <form method="post" action="{% url 'auth_login' %}">
