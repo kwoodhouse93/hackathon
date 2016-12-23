@@ -76,7 +76,8 @@ def project(request, project_id):
 
 @login_required
 def add_project(request):
-    form = ProjectForm(request.POST or None)
+    userFullName = request.user.first_name + ' ' + request.user.last_name
+    form = ProjectForm(request.POST or None, initial={'hackathon': decide_which_hackathon_to_display(), 'author': userFullName})
     if request.method == 'POST':
         if form.is_valid():
             project = form.save(commit=False)
