@@ -20,7 +20,7 @@
         <i class="cubes icon"></i>&nbsp;Project
     </h1>
     <h2>{{project}}</h2>
-    <h3>Author: {{ project.author }}</h3>
+    <h3>Project Lead: {{ project.author }}</h3>
     <a class="ui secondary button" href="{% url 'projects:edit_project' project.id %}">Edit&nbsp;&nbsp;&nbsp;<i class="edit icon"></i></a>
 
     {% if authenticated == True %}

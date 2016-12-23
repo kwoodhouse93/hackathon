@@ -80,6 +80,7 @@ def add_project(request):
     if request.method == 'POST':
         if form.is_valid():
             project = form.save(commit=False)
+            project.created_by = request.user
             project.save()
             return HttpResponseRedirect("/projects/")
     context = {
