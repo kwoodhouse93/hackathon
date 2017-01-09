@@ -93,6 +93,13 @@ def add_project(request):
             project = form.save(commit=False)
             project.created_by = request.user
             project.save()
+            # Sign me up automatically IFF:
+            #    I'm the leader of the project
+            #    I haven't already joined another project this hackathon
+            if (project.author.strip() == request.user.get_full_name() and
+                    not user_participating_in_hackathon(project.hackathon.number, request.user)
+                ):
+                project.participating_users.add(request.user)
             return HttpResponseRedirect("/projects/")
     context = {
         "form": form
