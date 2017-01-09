@@ -51,6 +51,9 @@
                             <a class="header" href="{% url 'projects:project' project.id %}" title="{{ project.name }}">
                                 {{ project.name }}
                             </a>
+                            <div class="ui right ribbon label" title="Project Lead">
+                                {{ project.author }}
+                            </div>
                             <div class="meta" title="Participants requested">
                                 {% if project.min_participants != project.max_participants %}
                                     {{ project.min_participants }} - {{ project.max_participants }} people,
@@ -60,9 +63,6 @@
                                     {{ project.max_participants }} people,
                                 {% endif %}
                                 {{ project.participating_users.count }} signed up
-                            </div>
-                            <div class="ui top right attached label" title="Project Lead">
-                                {{ project.author }}
                             </div>
                             <div class="description">
                                 {{ project.rich_description|safe|striptags|truncatechars:240 }}
