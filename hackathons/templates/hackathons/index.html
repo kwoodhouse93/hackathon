@@ -27,7 +27,11 @@
             <div class="item">
                 <div class="right floated content">
                     <a class="ui small button" href="{% url 'projects:index' hackathon.number %}">View Projects</a>
+                    {% if hackathon.end_date > today %}
                     <a class="ui small primary button" href="{% url 'projects:add_project' %}">Create Project</a>
+                    {% else %}
+                    <div class="ui small disabled button">Project Closed</div>
+                    {% endif %}
                 </div>
                 <div class="content">
                     <a class="header" a href="{% url 'projects:index' hackathon.number %}">

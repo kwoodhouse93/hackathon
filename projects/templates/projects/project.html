@@ -21,19 +21,24 @@
     </h1>
     <h2>{{project}}</h2>
     <h3>Author: {{ project.created_by.first_name }} {{project.created_by.last_name }}, &nbsp;Project Lead: {{ project.author }}</h3>
-    <a class="ui secondary button" href="{% url 'projects:edit_project' project.id %}">Edit&nbsp;&nbsp;&nbsp;<i class="edit icon"></i></a>
 
-    {% if authenticated == True %}
-        <form style="display:inline" action="{% url 'projects:project' project.id %}" method="POST">
-            {% csrf_token %}
-            {% if current_user_participating %}
-                <button type="submit" name="leave" class="ui red button">Leave&nbsp;&nbsp;<i class="sign out icon"></i></button>
-            {% else %}
-                {% if project.spaces_left and user_participating_already == False %}
-                    <button type="submit" name="join" class="ui primary button">Join<i class="right arrow icon"></i></button>
+    {% if hackathon_open %}
+        <a class="ui secondary button" href="{% url 'projects:edit_project' project.id %}">Edit&nbsp;&nbsp;&nbsp;<i class="edit icon"></i></a>
+
+        {% if authenticated == True %}
+            <form style="display:inline" action="{% url 'projects:project' project.id %}" method="POST">
+                {% csrf_token %}
+                {% if current_user_participating %}
+                    <button type="submit" name="leave" class="ui red button">Leave&nbsp;&nbsp;<i class="sign out icon"></i></button>
+                {% else %}
+                    {% if project.spaces_left and user_participating_already == False %}
+                        <button type="submit" name="join" class="ui primary button">Join<i class="right arrow icon"></i></button>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        </form>
+            </form>
+        {% endif %}
+    {% else %}
+        <div class="ui disabled black button">&nbsp;</div>
     {% endif %}
 
     {% if project.spaces_left == False %}

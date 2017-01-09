@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -7,7 +9,11 @@ from .forms import HackathonForm
 
 def index(request):
     hackathons = Hackathon.objects.all().order_by('start_date')
-    context = {'hackathons': hackathons}
+    today = date.today()
+    context = {
+        'hackathons': hackathons,
+        'today': today,
+    }
     return render(request, 'hackathons/index.html', context)
     #return HttpResponse("Hello, world. You're at the hackathon index")
 
