@@ -19,7 +19,7 @@ class Project(models.Model):
     author = models.CharField(max_length=50)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     # led_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    participants = models.TextField(blank=True)
+    participants = models.TextField(blank=True) # Deprecated
     participating_users = models.ManyToManyField(User, related_name='participant')
     min_participants = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     max_participants = models.PositiveIntegerField(validators=[MinValueValidator(1)])

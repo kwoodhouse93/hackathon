@@ -48,10 +48,10 @@
                 {% for project in projects %}
                     <div class="ui fluid card">
                         <div class="content">
-                            <a class="header" href="{% url 'projects:project' project.id %}">
+                            <a class="header" href="{% url 'projects:project' project.id %}" title="{{ project.name }}">
                                 {{ project.name }}
                             </a>
-                            <div class="meta">
+                            <div class="meta" title="Participants requested">
                                 {% if project.min_participants != project.max_participants %}
                                     {{ project.min_participants }} - {{ project.max_participants }} people,
                                 {% elif project.min_participants == 1 %}
@@ -60,7 +60,10 @@
                                     {{ project.max_participants }} people,
                                 {% endif %}
                                 {{ project.participating_users.count }} signed up
-                            </div class="meta">
+                            </div>
+                            <div class="ui top right attached label" title="Project Lead">
+                                {{ project.author }}
+                            </div>
                             <div class="description">
                                 {{ project.rich_description|safe|striptags|truncatechars:240 }}
                             </div>
@@ -69,11 +72,11 @@
                         <form action="{% url 'projects:project' project.id %}" method="POST">
                         {% csrf_token %}
                             <div class="ui two bottom attached buttons">
-                                <a class="ui button" href="{% url 'projects:project' project.id %}">View</a>
+                                <a class="ui button" title="View project" href="{% url 'projects:project' project.id %}">View</a>
                                 {% if hackathon_open == True %}
                                 {% if authenticated == True %}
                                     {% if user_participating_already == False %}
-                                        <button type="submit" name="join" class="ui primary button">Join</a>
+                                        <button type="submit" title="Join project" name="join" class="ui primary button">Join</a>
                                     {% elif current_users_project.id == project.id %}
                                         <div class="ui disabled primary button">Joined</div>
                                         |{{ current_users_project.id }}|
