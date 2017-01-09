@@ -6,7 +6,7 @@
     <i class="dropdown icon"></i>
     <div class="menu">
         {% for hackathon in hackathons %}
-        <a href="{% url 'projects:index' hackathon.number %}" class="item" > Hackathon #{{ hackathon.number }} </a>
+        <a href="{% url 'projects:index' hackathon.number %}" class="item" >Hackathon {{ hackathon.number }} </a>
         {% endfor %}
         {% if hackathons.count > 3 %}
             <a href="{% url 'hackathons:index' %}" class="item" > More </a>
@@ -20,7 +20,7 @@
 <div class="ui text container">
     <h1 class="ui inverted header">
         {% if hackathon %}
-            Hackathon #{{ hackathon }}
+            Hackathon {{ hackathon }}&ensp;//&ensp;{{ start_date }} &ndash; {{ end_date }}, {{ year }}
         {% else %}
             Hackathon <i class="coffee icon"></i>
         {% endif %}
