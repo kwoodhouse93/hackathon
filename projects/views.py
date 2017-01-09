@@ -29,13 +29,24 @@ def index(request, hackathon=None):
         else:
             user_participating_already = False
             current_users_project = None
+
         today = date.today()
         hackathon_open = Hackathon.objects.get(number=hackathon).end_date > today
+
+        hackathon_object = Hackathon.objects.get(number=hackathon)
+
+        start_date = hackathon_object.start_date.strftime('%b. %d')
+        end_date = hackathon_object.end_date.strftime('%b. %d')
+        year = hackathon_object.end_date.strftime('%Y')
     else:
         projects = Project.objects.all()
         user_participating_already = False
         current_users_project = None
         hackathon_open = False
+        start_date = None
+        end_date = None
+        year = None
+
     hackathons = decide_which_hackathons_to_display(4)
     authenticated = request.user.is_authenticated()
     context = {
@@ -46,6 +57,9 @@ def index(request, hackathon=None):
         'current_users_project': current_users_project,
         'authenticated': authenticated,
         'hackathon_open': hackathon_open,
+        'start_date': start_date,
+        'end_date': end_date,
+        'year': year,
     }
     return render(request, 'projects/index.html', context)
 

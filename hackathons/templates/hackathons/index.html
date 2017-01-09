@@ -35,7 +35,7 @@
                 </div>
                 <div class="content">
                     <a class="header" a href="{% url 'projects:index' hackathon.number %}">
-                        <h3>Hackathon #{{ hackathon.number }}</h3>
+                        <h3>Hackathon {{ hackathon.number }}</h3>
                     </a>
                     <div class="description">
                         {{ hackathon.start_date }} - {{ hackathon.end_date }}
