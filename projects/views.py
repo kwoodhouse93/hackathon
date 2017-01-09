@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -27,10 +29,13 @@ def index(request, hackathon=None):
         else:
             user_participating_already = False
             current_users_project = None
+        today = date.today()
+        hackathon_open = Hackathon.objects.get(number=hackathon).end_date > today
     else:
         projects = Project.objects.all()
         user_participating_already = False
         current_users_project = None
+        hackathon_open = False
     hackathons = decide_which_hackathons_to_display(4)
     authenticated = request.user.is_authenticated()
     context = {
@@ -40,11 +45,15 @@ def index(request, hackathon=None):
         'user_participating_already': user_participating_already,
         'current_users_project': current_users_project,
         'authenticated': authenticated,
+        'hackathon_open': hackathon_open,
     }
     return render(request, 'projects/index.html', context)
 
 def project(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
+
+    today = date.today()
+    hackathon_open = project.hackathon.end_date > today
 
     if request.method == 'POST':
         if "leave" in request.POST:
@@ -66,10 +75,11 @@ def project(request, project_id):
         user_participating_already = False
 
     context = {
-        'project':project,
-        'current_user_participating':current_user_participating,
-        'user_participating_already':user_participating_already,
-        'authenticated':authenticated,
+        'project': project,
+        'current_user_participating': current_user_participating,
+        'user_participating_already': user_participating_already,
+        'authenticated': authenticated,
+        'hackathon_open': hackathon_open,
     }
 
     return render(request, 'projects/project.html', context)

@@ -25,8 +25,13 @@
             Hackathon <i class="coffee icon"></i>
         {% endif %}
     </h1>
-    <h2>View, join or create projects for the next Hackathon.</h2>
-    <a class="ui huge primary button" href="{% url 'projects:add_project' %}">Create Project&nbsp;<i class="plus icon"></i></a>
+    {% if hackathon_open %}
+        <h2>View, join or create projects for the next Hackathon.</h2>
+        <a class="ui huge primary button" href="{% url 'projects:add_project' %}">Create Project&nbsp;<i class="plus icon"></i></a>
+    {% else %}
+        <h2>View projects for this Hackathon.</h2>
+        <div class="ui huge black disabled button">&nbsp;</div>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -65,6 +70,7 @@
                         {% csrf_token %}
                             <div class="ui two bottom attached buttons">
                                 <a class="ui button" href="{% url 'projects:project' project.id %}">View</a>
+                                {% if hackathon_open == True %}
                                 {% if authenticated == True %}
                                     {% if user_participating_already == False %}
                                         <button type="submit" name="join" class="ui primary button">Join</a>
@@ -72,6 +78,7 @@
                                         <div class="ui disabled primary button">Joined</div>
                                         |{{ current_users_project.id }}|
                                     {% endif %}
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </form>
