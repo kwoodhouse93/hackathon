@@ -29,17 +29,11 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-    def participants_as_list(self):
-        return filter(bool, re.split('[,;]', self.participants))
-
-    def participants_count(self):
-        return len(self.participants_as_list())
-
     def spaces_left(self):
-        return self.participants_count() < self.max_participants
+        return self.participating_users.count() < self.max_participants
 
     def participants_needed(self):
-        return self.participants_count() > self.min_participants
+        return self.participating_users.count() > self.min_participants
 
     def tag_list(self):
         return filter(bool, re.split('[,;]', self.tags))
