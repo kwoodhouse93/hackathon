@@ -132,6 +132,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_CONFIGS = {
     'default': {
+        'width': 700,
+        'height': 150,
         'toolbar': 'Custom',
         'toolbar_Custom': [
             {'name': 'basicstyles',

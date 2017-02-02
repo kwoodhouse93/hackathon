@@ -22,6 +22,7 @@
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
     <div class="ui divider"></div>
+    {% block instructions %}{% endblock %}
 
     <form id="base_form" class="ui form middle aligned" {% block form_attrs %}{% endblock %}>
         {% csrf_token %}

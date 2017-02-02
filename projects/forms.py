@@ -14,3 +14,8 @@ class ProjectForm(ModelForm):
             'min_participants': 1,
             'max_participants': 1,
         }
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Project
+        fields = ('showcase_aims', 'showcase_summary', 'showcase_lessons', 'showcase_future_work')

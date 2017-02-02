@@ -7,13 +7,14 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.db.models import Max
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 from helpers import *
 from .models import Project
 from .models import Hackathon
 from django.contrib.auth.models import User
 
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 
 def index(request, hackathon=None):
     # import pdb
@@ -157,3 +158,23 @@ def review(request, project_id):
       }
 
       return render(request, 'projects/review.html', context)
+
+@login_required
+def edit_review(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+
+    #FORM
+    form = ReviewForm(request.POST or None, instance=project)
+    if form.is_valid():
+        project = form.save(commit=False)
+        project.save()
+
+        url = reverse('projects:review', kwargs={'project_id': project_id})
+        return HttpResponseRedirect(url)
+
+    context = {
+        'form':form,
+        'project': project,
+    }
+
+    return render(request, 'projects/edit_review.html', context)
