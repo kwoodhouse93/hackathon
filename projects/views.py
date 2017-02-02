@@ -76,6 +76,7 @@ def project(request, project_id):
         if "join" in request.POST:
             project.participating_users.add(request.user)
             current_user_participating = True
+
         redirect_url = "/projects/" + str(project_id)
         return HttpResponseRedirect(redirect_url, {'project':project, 'current_user_participating':current_user_participating})
 
@@ -146,3 +147,13 @@ def edit_project(request, project_id):
     }
 
     return render(request, "projects/edit.html", context)
+
+
+def review(request, project_id):
+      project = get_object_or_404(Project, pk=project_id)
+
+      context = {
+        'project': project,
+      }
+
+      return render(request, 'projects/review.html', context)
