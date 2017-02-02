@@ -19,7 +19,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
+from django.views.decorators.cache import never_cache
 from hackathon.views import RegistrationView
+from ckeditor_uploader import views as ckeu_views
 
 urlpatterns = [
     url(r'^', include('projects.urls')),
@@ -35,5 +37,7 @@ urlpatterns = [
     url(r'^signup/$',
         RegistrationView.as_view(),
         name='auth_signup'),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^upload/', ckeu_views.upload, name='ckeditor_upload'),
+    url(r'^browse/', never_cache(ckeu_views.browse), name='ckeditor_browse'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
