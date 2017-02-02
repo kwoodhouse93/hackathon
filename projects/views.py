@@ -151,13 +151,20 @@ def edit_project(request, project_id):
 
 
 def review(request, project_id):
-      project = get_object_or_404(Project, pk=project_id)
+    project = get_object_or_404(Project, pk=project_id)
 
-      context = {
+    authenticated = request.user.is_authenticated()
+
+    if authenticated:
+        current_user_participating = request.user.participant.filter(id=project.id).exists()
+
+    context = {
         'project': project,
-      }
+        'authenticated': authenticated,
+        'current_user_participating': current_user_participating,
+    }
 
-      return render(request, 'projects/review.html', context)
+    return render(request, 'projects/review.html', context)
 
 @login_required
 def edit_review(request, project_id):

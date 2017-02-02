@@ -38,7 +38,10 @@
             </form>
         {% endif %}
     {% else %}
-        <div class="ui disabled black button">&nbsp;</div>
+        <a class="ui primary button" href="{% url 'projects:review' project.id %}">
+            <i class="history icon"></i>
+            Project Review
+        </a>
     {% endif %}
 
     {% if project.spaces_left == False %}
