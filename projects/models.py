@@ -49,4 +49,8 @@ class Project(models.Model):
     def skills_list(self):
         return filter(bool, re.split('[,;]', self.skills))
 
-
+    def showcase_not_empty(self):
+        return self.showcase_aims or \
+            self.showcase_summary or \
+            self.showcase_lessons or \
+            self.showcase_future_work
