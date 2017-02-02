@@ -30,7 +30,7 @@
         <a class="ui huge primary button" href="{% url 'projects:add_project' %}">Create Project&nbsp;<i class="plus icon"></i></a>
     {% else %}
         <h2>View projects for this Hackathon.</h2>
-        <div class="ui huge black disabled button">&nbsp;</div>
+        <a class="ui huge primary button" href="{% url 'projects:showcase' hackathon %}"><i class="trophy icon"></i>Project Showcase</a>
     {% endif %}
 </div>
 {% endblock %}
@@ -49,7 +49,7 @@
                     <div class="ui fluid card">
                         <div class="content">
                             <a class="header" href="{% url 'projects:project' project.id %}" title="{{ project.name }}">
-                                {{ project.name }}
+                                {{ project.name|truncatechars:75 }}
                             </a>
                             <div class="ui right ribbon label" title="Project Lead">
                                 {{ project.author }}

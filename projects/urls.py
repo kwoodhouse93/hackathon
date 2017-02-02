@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^edit/(?P<project_id>[0-9]+)/$', views.edit_project, name='edit_project'),
     url(r'^review/(?P<project_id>[0-9]+)/$', views.review, name='review'),
     url(r'^review/edit/(?P<project_id>[0-9]+)/$', views.edit_review, name='edit_review'),
+    url(r'^showcase/$', views.showcase, name='showcase'),
+    url(r'^showcase/(?P<hackathon>[0-9]+)/$', views.showcase, name='showcase'),
 ]

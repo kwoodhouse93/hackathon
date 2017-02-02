@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ project.name }}
+{% endblock title %}
+
+
+{% block left_menu %}
+<div class="ui container left attached">
+    <a href="{% url 'projects:project' project.id %}" class="header item">
+        <i class="left arrow icon"></i>
+    </a>
+</div>
+{% endblock %}
+
+{% block header %}
+<div class="ui text container">
+    <h1 class="ui inverted header">
+        <i class="history icon"></i>&nbsp;Project Review
+    </h1>
+    <h2>{{project}}</h2>
+    <h3>Author: {{ project.created_by.first_name }} {{project.created_by.last_name }}, &nbsp;Project Lead: {{ project.author }}</h3>
+
+    {% if current_user_participating %}
+        <a class="ui secondary button" href="{% url 'projects:edit_review' project.id %}">
+            Edit&nbsp;&nbsp;&nbsp;
+        <i class="edit icon"></i></a>
+    {% else %}
+        <div class="ui disabled black button">&nbsp;</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="ui text container">
+    <div class="ui vertical stripe segment">
+        <div class="hidden divider"></div>
+        {% if project.participating_users.count > 0 %}
+        <h3 class="ui horizontal divider header">
+            <i class="user icon"></i> Participants
+        </h3>
+        <div class="ui basic center aligned segment">
+            {% for participant in project.participating_users.all %}
+                {{ participant.first_name }} {{ participant.last_name }}<br>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if project.showcase_aims %}
+        <h3 class="ui horizontal divider header">
+            <i class="bullseye icon"></i> Aims
+        </h3>
+        <div class="ui basic segment">
+            {{ project.showcase_aims|safe }}
+        </div>
+        {% endif %}
+
+        {% if project.showcase_summary %}
+        <h3 class="ui horizontal divider header">
+            <i class="book icon"></i> Summary
+        </h3>
+        <div class="ui basic segment">
+            {{ project.showcase_summary|safe }}
+        </div>
+        {% endif %}
+
+        {% if project.showcase_lessons %}
+        <h3 class="ui horizontal divider header">
+            <i class="student icon"></i> Lessons Learned
+        </h3>
+        <div class="ui basic segment">
+            {{ project.showcase_lessons|safe }}
+        </div>
+        {% endif %}
+
+        {% if project.showcase_future_work %}
+        <h3 class="ui horizontal divider header">
+            <i class="calendar icon"></i> Future Work
+        </h3>
+        <div class="ui basic segment">
+            {{ project.showcase_future_work|safe }}
+        </div>
+        {% endif %}
+
+</div>
+{% endblock content %}

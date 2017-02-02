@@ -30,7 +30,7 @@
                     {% if hackathon.end_date > today %}
                     <a class="ui small primary button" href="{% url 'projects:add_project' %}">Create Project</a>
                     {% else %}
-                    <div class="ui small disabled button">Project Closed</div>
+                    <a class="ui small green button" href="{% url 'projects:showcase' hackathon.number %}">Project Showcase</a>
                     {% endif %}
                 </div>
                 <div class="content">

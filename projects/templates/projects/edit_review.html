@@ -1,0 +1,83 @@
+{% extends 'form_base.html' %}
+
+{% block left_menu %}
+<div class="ui container">
+    <a href="{% url 'projects:review' project.id %}" class="header item">
+        <i class="left arrow icon"></i>
+    </a>
+</div>
+{% endblock %}
+
+{% block title %}
+    Edit Review: {{ project.name }}
+{% endblock %}
+
+{% block form_header %}
+    Editing Review: {{ project.name }}
+{% endblock %}
+
+{% block form_attrs %}
+    action="{% url 'projects:edit_review' project.id %}"
+    method="post"
+{% endblock%}
+
+{% block instructions %}
+    <h2>Project Review</h2>
+    <p>
+        The text you enter on this page is used to compile the showcase of all
+        the projects for this hackathon.  Use it as an opportunity to show off
+        what you've done and reflect on what you've learnt.
+    </p>
+    <p>
+        Only the <em>Summary</em> field is mandatory; so if you don't feel like completing
+        the entire review, feel free to leave out the remaining fields.
+    </p>
+    <p class="red">
+        <i class="red warning circle icon"></i>
+        These text fields <strong>do not autosave</strong>.  Make sure you hit the
+        'Submit' button at the bottom of the page before navigating away.
+        It is recommended that you draft your review offline before copying it
+        into the fields below.
+    </p>
+    <div class="ui divider"></div>
+{% endblock %}
+
+{% block form_fields %}
+    <div class="field">
+        <label>Aims</label>
+        <p>What were you hoping to achieve at the start of the project?</p>
+        {{ form.media }}
+        {{ form.showcase_aims }}
+    </div>
+
+    <div class="required field">
+        <label>Summary</label>
+        <p>
+            What did you achieve?
+            What unexpected difficulties did you encounter?
+            How did you overcome them?
+        </p>
+        {{ form.showcase_summary }}
+    </div>
+
+    <div class="field">
+        <label>Lessons Learned</label>
+        <p>
+            What did you learn from doing this project?
+        </p>
+        {{ form.showcase_lessons }}
+    </div>
+
+    <div class="field">
+        <label>Future Work</label>
+        <p>
+            What directions could the work take in the future?
+            What didn't you have time to do?
+        </p>
+        {{ form.showcase_future_work }}
+    </div>
+
+    <button class="ui button" type="submit">Submit</button>
+
+    <div class="ui divider"></div>
+{% endblock %}

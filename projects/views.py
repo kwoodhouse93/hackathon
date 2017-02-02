@@ -185,3 +185,42 @@ def edit_review(request, project_id):
     }
 
     return render(request, 'projects/edit_review.html', context)
+
+def showcase(request, hackathon=None):
+    if hackathon is None:
+        hackathon = decide_which_hackathon_to_display()
+    if hackathon:
+        projects = Project.objects.filter(hackathon__number = hackathon)
+        if request.user.is_authenticated() and user_participating_in_projects(projects, request.user):
+            current_users_project_qs = request.user.participant.filter(hackathon_id=hackathon)
+            if current_users_project_qs.count() > 0:
+                current_users_project = current_users_project_qs[0]
+        else:
+            current_users_project = None
+
+        hackathon_object = Hackathon.objects.get(number=hackathon)
+        start_date = hackathon_object.start_date.strftime('%b. %d')
+        end_date = hackathon_object.end_date.strftime('%b. %d')
+        year = hackathon_object.end_date.strftime('%Y')
+    else:
+        projects = Project.objects.all()
+        current_users_project = None
+        start_date = None
+        end_date = None
+        year = None
+
+    # All past hackathons
+    today = date.today()
+    hackathons = Hackathon.objects.filter(end_date__lte=today)
+
+    context = {
+        'hackathon': hackathon,
+        'hackathons': hackathons,
+        'projects': projects,
+        'current_users_project': current_users_project,
+        'start_date': start_date,
+        'end_date': end_date,
+        'year': year,
+    }
+
+    return render(request, 'projects/showcase.html', context)
