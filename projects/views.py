@@ -21,7 +21,7 @@ def index(request, hackathon=None):
     if hackathon is None:
         hackathon = decide_which_hackathon_to_display()
     if hackathon:
-        projects = Project.objects.filter(hackathon__number = hackathon)
+        projects = Project.objects.filter(hackathon__number = hackathon).annotate(p_count=Count('participating_users')).order_by('-p_count')
         if request.user.is_authenticated() and user_participating_in_projects(projects, request.user):
             user_participating_already = True
             current_users_project_qs = request.user.participant.filter(hackathon_id=hackathon)
@@ -40,7 +40,7 @@ def index(request, hackathon=None):
         end_date = hackathon_object.end_date.strftime('%b. %d')
         year = hackathon_object.end_date.strftime('%Y')
     else:
-        projects = Project.objects.all()
+        projects = Project.objects.all().annotate(p_count=Count(participating_users)).order_by('-p_count')
         user_participating_already = False
         current_users_project = None
         hackathon_open = False
