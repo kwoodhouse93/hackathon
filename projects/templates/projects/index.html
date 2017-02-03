@@ -52,7 +52,11 @@
                     <div class="ui fluid card">
                     {% endif %}
                         <div class="content">
-                            <a class="header" href="{% url 'projects:project' project.id %}" title="{{ project.name }}">
+                            <a class="header
+                                    {% if not hackathon_open and project.participating_users.count == 0 %}
+                                    ui disabled
+                                    {% endif %}"
+                                href="{% url 'projects:project' project.id %}" title="{{ project.name }}">
                                 {% if current_users_project.id == project.id %}
                                 <i class="blue user icon"></i>
                                 {% endif %}
