@@ -20,7 +20,7 @@ class Project(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     # led_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     participants = models.TextField(blank=True) # Deprecated
-    participating_users = models.ManyToManyField(User, related_name='participant', null=True, blank=True)
+    participating_users = models.ManyToManyField(User, related_name='participant', blank=True)
     min_participants = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     max_participants = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     hackathon = models.ForeignKey(Hackathon, on_delete=models.SET_NULL, null=True, blank=True)
