@@ -39,8 +39,16 @@
             {% if project.showcase_not_empty %}
 
             <h3 class="ui horizontal divider header">
-                {{ project.name|truncatechars:75 }}
+                <a href="{% url 'projects:review' project.id %}">
+                    {{ project.name|truncatechars:75 }}
+                </a>
             </h3>
+            {% if current_users_project.id == project.id %}
+                <a class="right floated circular ui icon button"
+                    href="{% url 'projects:edit_review' project.id %}">
+                    <i class="write icon"></i>
+                </a>
+            {% endif %}
 
             <h4 class="ui header">
                 <i class="user icon"></i> Participants
