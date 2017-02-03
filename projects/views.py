@@ -157,6 +157,8 @@ def review(request, project_id):
 
     if authenticated:
         current_user_participating = request.user.participant.filter(id=project.id).exists()
+    else:
+        current_user_participating = None
 
     context = {
         'project': project,

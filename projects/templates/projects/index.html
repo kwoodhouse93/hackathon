@@ -46,11 +46,21 @@
 
                 <div class="ui three doubling stackable cards">
                 {% for project in projects %}
+                    {% if current_users_project.id == project.id %}
+                    <div class="ui blue fluid card">
+                    {% else %}
                     <div class="ui fluid card">
+                    {% endif %}
                         <div class="content">
                             <a class="header" href="{% url 'projects:project' project.id %}" title="{{ project.name }}">
+                                {% if current_users_project.id == project.id %}
+                                <i class="blue user icon"></i>
+                                {% endif %}
                                 {{ project.name|truncatechars:75 }}
                             </a>
+                            <!--{% if current_users_project.id == project.id %}
+                                <div class="ui tiny blue top right attached label"></div>
+                            {% endif %}-->
                             <div class="ui right ribbon label" title="Project Lead">
                                 {{ project.author }}
                             </div>
