@@ -23,7 +23,7 @@
 
     <a class="ui primary button" href="{% url 'projects:showcase' project.hackathon.number %}"><i class="trophy icon"></i>Project Showcase</a>
     {% if current_user_participating %}
-        <a class="ui secondary button" href="{% url 'projects:edit_review' project.id %}" target="_blank">
+        <a class="ui secondary button" href="{% url 'projects:edit_review' project.id %}">
             Edit&nbsp;&nbsp;&nbsp;
         <i class="edit icon"></i></a>
     {% else %}
